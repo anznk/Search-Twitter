@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"launch": {
+		"configurations": [{
+			"type": "aws-sam",
+			"request": "direct-invoke",
+			"name": "API hashdag:helloworld"
+			"invokeTarget":{
+				"target": "api",
+				"templatePath": "${workspaceFolder}/backend-app/template.yaml",
+				"logicalId": "HelloWorldFunction",
+			},
+			"api":{
+				"path":"/hello",
+				"httpMethod": "get",
+				"payload": {
+					"json":{}
+				}
+			}
+
+		}],
+		"compounds": []
+	}
+}
