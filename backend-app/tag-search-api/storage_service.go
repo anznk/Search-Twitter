@@ -125,5 +125,5 @@ func InitialiseTable()(string, int){
 		return "error calling CreateTable - " + err.Error(), 400
     }
 
-	return "created table", 200
+	return "success", 200
 }
