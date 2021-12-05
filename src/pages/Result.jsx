@@ -2,10 +2,25 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 const Result = () => {
+    const [tweets, setTweets ] = useState([]);
+  useEffect(async () => {
+    if (tweets.length) {
+      return;
+    }
+    const { data } = await axios.get(`http://localhost:3000/results`, {mode: 'cors'});
+    console.log("1111111", data);
+    if (data.length) {
+      setTweets(data);
+    }
+  }, [tweets]);
   return (
-    <div>
-      <h1>Result</h1>
-    </div>
+    <ol>{
+      tweets.map((tweet, i) => {
+        return (
+          <li key={ i }>{ tweet.searchtag }</li>
+        )
+      })
+    }</ol>
   )
 }
 

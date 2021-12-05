@@ -7,7 +7,7 @@ import (
     "github.com/aws/aws-sdk-go/service/dynamodb"
 )
 
-var DDB_ENDPOINT = "http://192.168.1.5:8000"
+var DDB_ENDPOINT = "http://192.168.1.18:8000"
 var REGION = "us-west-2"
 
 func SimpleDynamoDBQuery() {
@@ -41,13 +41,16 @@ func GetResults()(SearchTagResponseList,string, int){
 		searchTagResponse.Data = *i["data"].S
 
 		searchTagResponseList = append(searchTagResponseList, searchTagResponse)
+		fmt.Println(searchTagResponse)
 	}
-	
+	fmt.Println(searchTagResponseList)
+
 	return searchTagResponseList, "", 200
 
 }
 
 func AddSearchTag(searchtag SearchTagBody, date string, data string) (string, int){
+	fmt.Println("AddSearchTag")
 	sess, err := session.NewSession(&aws.Config{
 		Endpoint: aws.String(DDB_ENDPOINT),
 		Region: aws.String(REGION),
@@ -76,7 +79,7 @@ func AddSearchTag(searchtag SearchTagBody, date string, data string) (string, in
 		fmt.Println(err.Error())
 		return "error calling NewSession - " + err.Error(), 400
 	}
-	return "success", 200
+	return "", 0
 }
 
 func InitialiseTable()(string, int){
@@ -124,6 +127,6 @@ func InitialiseTable()(string, int){
         fmt.Println(err.Error())
 		return "error calling CreateTable - " + err.Error(), 400
     }
-
 	return "success", 200
+
 }
