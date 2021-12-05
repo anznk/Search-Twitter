@@ -26,10 +26,12 @@ func SimpleRouter(request events.APIGatewayProxyRequest)(message string, statusC
 		json.Unmarshal([]byte(request.Body), &searchTag)
 
 		body, statusCode := AddSearchTag(searchTag, fmt.Sprint(currentTime), "")
-		return body, statusCode
+		jsonString, _ := json.Marshal("{message: " +body+"}")
+		return string(jsonString), statusCode
 	}else if request.Resource == "/initialise" {
-		var body, statusCode = TestQuery()
+		var body, statusCode = InitialiseTable()
 		return body, statusCode
 	}
-	return "", 404
+	jsonString, _ := json.Marshal("{message: error}")
+	return string(jsonString), 404
 }
