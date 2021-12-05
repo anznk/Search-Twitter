@@ -9,34 +9,36 @@ Globals:
   Function:
     Timeout: 5
 Resources:
-  HelloWorldFunction:
+  TagSearchApiFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: HelloWorldFunction
-      Handler: hello-world
+      CodeUri: TagSearchApiFunction
+      Handler: tag-search-api
       Runtime: go1.x
       Tracing: Active
       Events:
-        CatchAll:
+        GetResults:
           Type: Api
           Properties:
-            Path: /hello
+            Path: /results
             Method: GET
-      Environment:
-        Variables:
-          PARAM1: VALUE
+        SubmitSearchTag:
+          Type: API
+          Properties:
+            Path: /register
+            Method: POST
 Outputs:
-  HelloWorldAPI:
-    Description: API Gateway endpoint URL for Prod environment for First Function
+  TagSearchApiAPI:
+    Description: API Gateway endpoint URL
     Value:
-      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/
-  HelloWorldFunction:
-    Description: First Lambda Function ARN
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/tagsearchapi/
+  TagSearchApiFunction:
+    Description: TagSearchAPI
     Value:
       Fn::GetAtt:
-      - HelloWorldFunction
+      - TagSearchApiFunction
       - Arn
-  HelloWorldFunctionIamRole:
+  TagSearchApiFunctionIamRole:
     Description: Implicit IAM Role created for Hello World function
     Value:
       Fn::GetAtt:
