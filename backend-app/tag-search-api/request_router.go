@@ -8,6 +8,7 @@ import (
 )
 
 func SimpleRouter(request events.APIGatewayProxyRequest)(message string, statusCode int) {
+	
 	if request.Resource == "/results" {
 		searchTagResponseList, body, statusCode := GetResults()
 		fmt.Println(searchTagResponseList)
