@@ -9,7 +9,9 @@ Globals:
   Function:
     Timeout: 5
   Api:
-    Cors: '''*'''
+    Cors:
+      AllowOrigin: '''*'''
+      AllowHeaders: '''*'''
 Resources:
   TagSearchApiFunction:
     Type: AWS::Serverless::Function
