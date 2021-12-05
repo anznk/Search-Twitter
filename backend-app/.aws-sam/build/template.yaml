@@ -30,7 +30,7 @@ Resources:
         Test:
           Type: Api
           Properties:
-            Path: /test
+            Path: /initialise
             Method: GET
 Outputs:
   TagSearchApiAPI:

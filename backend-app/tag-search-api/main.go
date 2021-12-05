@@ -2,9 +2,9 @@ package main
 
 import (
 	"errors"
-	"fmt"
-	"io/ioutil"
-	"net/http"
+	// "fmt"
+	// "io/ioutil"
+	// "net/http"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 )
@@ -22,29 +22,29 @@ var (
 
 func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	// fmt.Println("Received body: " + request.Body)
-	SimpleRouter(request)
-	
-	resp, err := http.Get(DefaultHTTPGetAddress)
-	if err != nil {
-		return events.APIGatewayProxyResponse{}, err
-	}
+	var body, statusCode = SimpleRouter(request)
 
-	if resp.StatusCode != 200 {
-		return events.APIGatewayProxyResponse{}, ErrNon200Response
-	}
+	// resp, err := http.Get(DefaultHTTPGetAddress)
+	// if err != nil {
+	// 	return events.APIGatewayProxyResponse{}, err
+	// }
 
-	ip, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return events.APIGatewayProxyResponse{}, err
-	}
+	// if resp.StatusCode != 200 {
+	// 	return events.APIGatewayProxyResponse{}, ErrNon200Response
+	// }
 
-	if len(ip) == 0 {
-		return events.APIGatewayProxyResponse{}, ErrNoIP
-	}
+	// ip, err := ioutil.ReadAll(resp.Body)
+	// if err != nil {
+	// 	return events.APIGatewayProxyResponse{}, err
+	// }
+
+	// if len(ip) == 0 {
+	// 	return events.APIGatewayProxyResponse{}, ErrNoIP
+	// }
 
 	return events.APIGatewayProxyResponse{
-		Body: fmt.Sprintf("Hello"),
-		StatusCode: 200,
+		Body: body,
+		StatusCode: statusCode,
 	}, nil
 }
 

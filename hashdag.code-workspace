@@ -49,7 +49,7 @@
 				"logicalId": "TagSearchApiFunction",
 			},
 			"api":{
-				"path":"/test",
+				"path":"/initialise",
 				"httpMethod": "get",
 				"payload": {
 					"json":{}
