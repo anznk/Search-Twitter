@@ -1,0 +1,61 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"launch": {
+		"configurations": [{
+			"type": "aws-sam",
+			"request": "direct-invoke",
+			"name": "API hashdag:results",
+			"invokeTarget":{
+				"target": "api",
+				"templatePath": "${workspaceFolder}/backend-app/template.yaml",
+				"logicalId": "TagSearchApiFunction",
+			},
+			"api":{
+				"path":"/results",
+				"httpMethod": "get",
+				"payload": {
+					"json":{}
+				}
+			}
+		},{
+			"type": "aws-sam",
+			"request": "direct-invoke",
+			"name": "API hashdag:register",
+			"invokeTarget":{
+				"target": "api",
+				"templatePath": "${workspaceFolder}/backend-app/template.yaml",
+				"logicalId": "TagSearchApiFunction",
+			},
+			"api":{
+				"path":"/register",
+				"httpMethod": "post",
+				"payload": {
+					"json":{
+						"searchtag": "Vancouver",
+					}
+				}
+			}
+		},{
+			"type": "aws-sam",
+			"request": "direct-invoke",
+			"name": "API hashdag:test",
+			"invokeTarget":{
+				"target": "api",
+				"templatePath": "${workspaceFolder}/backend-app/template.yaml",
+				"logicalId": "TagSearchApiFunction",
+			},
+			"api":{
+				"path":"/initialise",
+				"httpMethod": "get",
+				"payload": {
+					"json":{}
+				}
+			}
+		}],
+		"compounds": []
+	}
+}

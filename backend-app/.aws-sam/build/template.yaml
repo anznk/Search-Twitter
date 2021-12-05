@@ -1,0 +1,51 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'backend-app
+
+  Sample SAM Template for backend-app
+
+  '
+Globals:
+  Function:
+    Timeout: 5
+Resources:
+  TagSearchApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: TagSearchApiFunction
+      Handler: tag-search-api
+      Runtime: go1.x
+      Tracing: Active
+      Events:
+        GetResults:
+          Type: Api
+          Properties:
+            Path: /results
+            Method: GET
+        SubmitSearchTag:
+          Type: Api
+          Properties:
+            Path: /register
+            Method: POST
+        Test:
+          Type: Api
+          Properties:
+            Path: /initialise
+            Method: GET
+Outputs:
+  TagSearchApiAPI:
+    Description: API Gateway endpoint URL
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/tagsearchapi/
+  TagSearchApiFunction:
+    Description: TagSearchAPI
+    Value:
+      Fn::GetAtt:
+      - TagSearchApiFunction
+      - Arn
+  TagSearchApiFunctionIamRole:
+    Description: Implicit IAM Role created for Hello World function
+    Value:
+      Fn::GetAtt:
+      - HelloWorldFunctionRole
+      - Arn
