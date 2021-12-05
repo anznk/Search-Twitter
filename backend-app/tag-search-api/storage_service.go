@@ -41,16 +41,13 @@ func GetResults()(SearchTagResponseList,string, int){
 		searchTagResponse.Data = *i["data"].S
 
 		searchTagResponseList = append(searchTagResponseList, searchTagResponse)
-		fmt.Println(searchTagResponse)
 	}
-	fmt.Println(searchTagResponseList)
-
+	
 	return searchTagResponseList, "", 200
 
 }
 
 func AddSearchTag(searchtag SearchTagBody, date string, data string) (string, int){
-	fmt.Println("AddSearchTag")
 	sess, err := session.NewSession(&aws.Config{
 		Endpoint: aws.String(DDB_ENDPOINT),
 		Region: aws.String(REGION),
@@ -79,10 +76,10 @@ func AddSearchTag(searchtag SearchTagBody, date string, data string) (string, in
 		fmt.Println(err.Error())
 		return "error calling NewSession - " + err.Error(), 400
 	}
-	return "", 0
+	return "success", 200
 }
 
-func TestQuery()(string, int){
+func InitialiseTable()(string, int){
     sess, err := session.NewSession(&aws.Config{
 		Endpoint: aws.String(DDB_ENDPOINT),
         Region: aws.String(REGION),
@@ -128,5 +125,5 @@ func TestQuery()(string, int){
 		return "error calling CreateTable - " + err.Error(), 400
     }
 
-	return "Created table", 200
+	return "created table", 200
 }
