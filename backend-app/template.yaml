@@ -25,10 +25,15 @@ Resources:
             Path: /results
             Method: GET
         SubmitSearchTag:
-          Type: API
+          Type: Api
           Properties:
             Path: /register
             Method: POST
+        Test:
+          Type: Api
+          Properties:
+            Path: /test
+            Method: GET
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function

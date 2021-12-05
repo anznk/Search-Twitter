@@ -22,6 +22,8 @@ var (
 
 func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	// fmt.Println("Received body: " + request.Body)
+	SimpleRouter(request)
+	
 	resp, err := http.Get(DefaultHTTPGetAddress)
 	if err != nil {
 		return events.APIGatewayProxyResponse{}, err
@@ -41,7 +43,7 @@ func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 	}
 
 	return events.APIGatewayProxyResponse{
-		Body: fmt.Sprintf("Hello, %v", string(ip)),
+		Body: fmt.Sprintf("Hello"),
 		StatusCode: 200,
 	}, nil
 }

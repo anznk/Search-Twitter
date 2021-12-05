@@ -39,6 +39,22 @@
 					}
 				}
 			}
+		},{
+			"type": "aws-sam",
+			"request": "direct-invoke",
+			"name": "API hashdag:test",
+			"invokeTarget":{
+				"target": "api",
+				"templatePath": "${workspaceFolder}/backend-app/template.yaml",
+				"logicalId": "TagSearchApiFunction",
+			},
+			"api":{
+				"path":"/test",
+				"httpMethod": "get",
+				"payload": {
+					"json":{}
+				}
+			}
 		}],
 		"compounds": []
 	}
