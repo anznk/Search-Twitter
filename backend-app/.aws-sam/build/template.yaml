@@ -8,6 +8,8 @@ Description: 'backend-app
 Globals:
   Function:
     Timeout: 5
+  Api:
+    Cors: '''*'''
 Resources:
   TagSearchApiFunction:
     Type: AWS::Serverless::Function

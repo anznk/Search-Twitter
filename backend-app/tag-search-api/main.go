@@ -21,27 +21,8 @@ var (
 )
 
 func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-	// fmt.Println("Received body: " + request.Body)
+
 	var body, statusCode = SimpleRouter(request)
-
-	// resp, err := http.Get(DefaultHTTPGetAddress)
-	// if err != nil {
-	// 	return events.APIGatewayProxyResponse{}, err
-	// }
-
-	// if resp.StatusCode != 200 {
-	// 	return events.APIGatewayProxyResponse{}, ErrNon200Response
-	// }
-
-	// ip, err := ioutil.ReadAll(resp.Body)
-	// if err != nil {
-	// 	return events.APIGatewayProxyResponse{}, err
-	// }
-
-	// if len(ip) == 0 {
-	// 	return events.APIGatewayProxyResponse{}, ErrNoIP
-	// }
-
 	return events.APIGatewayProxyResponse{
 		Body: body,
 		StatusCode: statusCode,
