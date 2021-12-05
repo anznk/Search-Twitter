@@ -29,6 +29,7 @@ func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 		Headers: map[string]string{
 			"Content-Type": "application/json",
 			"Cross-Origin-Allow-Origin": "*",
+			"Access-Control-Allow-Origin": "*",
 		},
 	}, nil
 }
