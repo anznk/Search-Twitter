@@ -3,21 +3,46 @@ import { useEffect, useState } from 'react';
 
 const Result = () => {
     const [tweets, setTweets ] = useState([]);
-  useEffect(async () => {
+    const [searchTag, setSearchTag ] = useState();
+    
+    async function fetchData() {
+      // get Search word
+      const res = await axios.get(`http://localhost:3000/results`, {mode: 'cors'});
+      const items = res.data;
+      if (items.length) {
+        // sort
+        const value = items.sort(function (a, b) {
+          return b.date - a.date;
+        });
+        setSearchTag(value[0].searchtag);
+        console.log("value[0].searchtag", value[0].searchtag);
+      }
+      if(searchTag){
+        fetchTweets(searchTag);
+      }
+    }
+    async function fetchTweets(keyword) {
+      console.log("keyword", keyword);
+      // get tweet with search word
+      const tweets = await axios.get('http://localhost:3000/searchtweets?searchtag='+'${keyword}');
+      const data = tweets.data;
+      console.log("data", data);
+      if(data){
+        setTweets(data);
+      }
+    }
+
+  useEffect(() => {
     if (tweets.length) {
       return;
     }
-    const { data } = await axios.get(`http://localhost:3000/results`, {mode: 'cors'});
-    console.log("1111111", data);
-    if (data.length) {
-      setTweets(data);
-    }
+    fetchData();
   }, [tweets]);
   return (
     <ol>{
       tweets.map((tweet, i) => {
         return (
-          <li key={ i }>{ tweet.searchtag }</li>
+          <li key={ i }>{ tweet.text }</li>
         )
       })
     }</ol>
@@ -26,31 +51,3 @@ const Result = () => {
 
 export default Result
 
-// export default function Result() {
-//   const [tweets, setTweets ] = useState([]);
-
-//   useEffect(async () => {
-//     if (tweets.length) {
-//       return;
-//     }
-
-//     const q = 'Vancouver';
-//     const { data } = await axios.get(`/api/tweets?q=${ encodeURIComponent(q) }`);
-
-//     if (data.length) {
-//       setTweets(data);
-//     }
-//   }, [tweets]);
-
-//   return (
-//     <ol>{
-//       tweets.map((tweet, i) => {
-//         return (
-//           <li key={ i }>{ tweet.text }</li>
-//         )
-//       })
-//     }</ol>
-//   )
-// }
-
-// export default Result
