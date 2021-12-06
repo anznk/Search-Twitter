@@ -32,6 +32,15 @@ func SimpleRouter(request events.APIGatewayProxyRequest)(message string, statusC
 	}else if request.Resource == "/initialise" {
 		var body, statusCode = InitialiseTable()
 		return body, statusCode
+	}else if request.Resource == "/searchtweets" {
+		searchTag := request.QueryStringParameters["searchtag"]
+		
+		var tweets, body, statusCode = TweetSearch(searchTag)
+		if(tweets == nil){
+			return body, statusCode
+		}
+		jsonString, _ := json.Marshal(tweets)
+		return string(jsonString), statusCode
 	}
 	jsonString, _ := json.Marshal("{message: error}")
 	return string(jsonString), 404
