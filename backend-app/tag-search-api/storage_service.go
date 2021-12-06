@@ -2,22 +2,23 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/aws/aws-sdk-go/aws"
-    "github.com/aws/aws-sdk-go/aws/session"
-    "github.com/aws/aws-sdk-go/service/dynamodb"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/dynamodb"
 )
 
-var DDB_ENDPOINT = "http://192.168.1.18:8000"
+var DDB_ENDPOINT = "http://192.168.1.5:8000"
 var REGION = "us-west-2"
 
 func SimpleDynamoDBQuery() {
 	fmt.Println("SimpleDynamoDBQuery")
 }
 
-func GetResults()(SearchTagResponseList,string, int){
+func GetResults() (SearchTagResponseList, string, int) {
 	sess, err := session.NewSession(&aws.Config{
 		Endpoint: aws.String(DDB_ENDPOINT),
-		Region: aws.String(REGION),
+		Region:   aws.String(REGION),
 	})
 
 	svc := dynamodb.New(sess)
@@ -27,7 +28,6 @@ func GetResults()(SearchTagResponseList,string, int){
 	})
 
 	if err != nil {
-		fmt.Println("Got error calling Scan:")
 		fmt.Println(err.Error())
 		return nil, "error calling Scan - " + err.Error(), 400
 	}
@@ -41,23 +41,19 @@ func GetResults()(SearchTagResponseList,string, int){
 		searchTagResponse.Data = *i["data"].S
 
 		searchTagResponseList = append(searchTagResponseList, searchTagResponse)
-		fmt.Println(searchTagResponse)
 	}
-	fmt.Println(searchTagResponseList)
 
-	return searchTagResponseList, "", 200
+	return searchTagResponseList, "success", 200
 
 }
 
-func AddSearchTag(searchtag SearchTagBody, date string, data string) (string, int){
-	fmt.Println("AddSearchTag")
+func AddSearchTag(searchtag SearchTagBody, date string, data string) (string, int) {
 	sess, err := session.NewSession(&aws.Config{
 		Endpoint: aws.String(DDB_ENDPOINT),
-		Region: aws.String(REGION),
+		Region:   aws.String(REGION),
 	})
 
 	svc := dynamodb.New(sess)
-	fmt.Println(searchtag.SearchTag)
 	input := &dynamodb.PutItemInput{
 		Item: map[string]*dynamodb.AttributeValue{
 			"searchtag": {
@@ -75,58 +71,56 @@ func AddSearchTag(searchtag SearchTagBody, date string, data string) (string, in
 	_, err = svc.PutItem(input)
 
 	if err != nil {
-		fmt.Println("Got error calling NewSession:")
 		fmt.Println(err.Error())
 		return "error calling NewSession - " + err.Error(), 400
 	}
 	return "", 0
 }
 
-func InitialiseTable()(string, int){
-    sess, err := session.NewSession(&aws.Config{
+func InitialiseTable() (string, int) {
+	sess, err := session.NewSession(&aws.Config{
 		Endpoint: aws.String(DDB_ENDPOINT),
-        Region: aws.String(REGION),
+		Region:   aws.String(REGION),
 	})
 
-    // Create DynamoDB client
-    svc := dynamodb.New(sess)
+	// Create DynamoDB client
+	svc := dynamodb.New(sess)
 
 	// Create SearchTag table
-    input := &dynamodb.CreateTableInput{
-        AttributeDefinitions: []*dynamodb.AttributeDefinition{
-            {
-                AttributeName: aws.String("date"),
-                AttributeType: aws.String("S"),
-            },
-            {
-                AttributeName: aws.String("searchtag"),
-                AttributeType: aws.String("S"),
-            },
-        },
-        KeySchema: []*dynamodb.KeySchemaElement{
-            {
-                AttributeName: aws.String("date"),
-                KeyType:       aws.String("HASH"),
-            },
-            {
-                AttributeName: aws.String("searchtag"),
-                KeyType:       aws.String("RANGE"),
-            },
-        },
-        ProvisionedThroughput: &dynamodb.ProvisionedThroughput{
-            ReadCapacityUnits:  aws.Int64(10),
-            WriteCapacityUnits: aws.Int64(10),
-        },
-        TableName: aws.String("SearchTags"),
-    }
+	input := &dynamodb.CreateTableInput{
+		AttributeDefinitions: []*dynamodb.AttributeDefinition{
+			{
+				AttributeName: aws.String("date"),
+				AttributeType: aws.String("S"),
+			},
+			{
+				AttributeName: aws.String("searchtag"),
+				AttributeType: aws.String("S"),
+			},
+		},
+		KeySchema: []*dynamodb.KeySchemaElement{
+			{
+				AttributeName: aws.String("date"),
+				KeyType:       aws.String("HASH"),
+			},
+			{
+				AttributeName: aws.String("searchtag"),
+				KeyType:       aws.String("RANGE"),
+			},
+		},
+		ProvisionedThroughput: &dynamodb.ProvisionedThroughput{
+			ReadCapacityUnits:  aws.Int64(10),
+			WriteCapacityUnits: aws.Int64(10),
+		},
+		TableName: aws.String("SearchTags"),
+	}
 
-    _, err = svc.CreateTable(input)
+	_, err = svc.CreateTable(input)
 
-    if err != nil {
-        // fmt.Println("Got error calling CreateTable:")
-        fmt.Println(err.Error())
+	if err != nil {
+		fmt.Println(err.Error())
 		return "error calling CreateTable - " + err.Error(), 400
-    }
+	}
 	return "success", 200
 
 }
