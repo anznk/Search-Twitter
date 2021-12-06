@@ -9,24 +9,21 @@ const Result = () => {
       // get Search word
       const res = await axios.get(`http://localhost:3000/results`, {mode: 'cors'});
       const items = res.data;
+      
       if (items.length) {
         // sort
         const value = items.sort(function (a, b) {
           return b.date - a.date;
         });
         setSearchTag(value[0].searchtag);
-        console.log("value[0].searchtag", value[0].searchtag);
-      }
-      if(searchTag){
-        fetchTweets(searchTag);
       }
     }
     async function fetchTweets(keyword) {
-      console.log("keyword", keyword);
+      const URLBASE = 'http://localhost:3000/searchtweets?searchtag='+keyword;
+      console.log("URLBASE", URLBASE);
       // get tweet with search word
-      const tweets = await axios.get('http://localhost:3000/searchtweets?searchtag='+'${keyword}');
+      const tweets = await axios.get(URLBASE);
       const data = tweets.data;
-      console.log("data", data);
       if(data){
         setTweets(data);
       }
@@ -37,15 +34,23 @@ const Result = () => {
       return;
     }
     fetchData();
-  }, [tweets]);
+    if(searchTag){
+      fetchTweets(searchTag);
+    }
+
+  }, [tweets, searchTag]);
   return (
-    <ol>{
-      tweets.map((tweet, i) => {
-        return (
-          <li key={ i }>{ tweet.text }</li>
-        )
-      })
-    }</ol>
+    <div>
+      {/* <p>{searchTag}</p> */}
+      
+      <ol>{
+        tweets.map((tweet, i) => {
+          return (
+            <li key={ i }>{ tweet.text }</li>
+          )
+        })
+      }</ol>
+    </div>
   )
 }
 
