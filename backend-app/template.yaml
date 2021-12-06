@@ -33,6 +33,11 @@ Resources:
           Properties:
             Path: /register
             Method: POST
+        SearchTweets:
+          Type: Api
+          Properties:
+            Path: /searchtweets
+            Method: GET
         Test:
           Type: Api
           Properties:

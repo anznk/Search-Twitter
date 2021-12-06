@@ -55,6 +55,20 @@
 					"json":{}
 				}
 			}
+		},{
+			"type": "aws-sam",
+			"request": "direct-invoke",
+			"name": "API hashdag:searchtweets",
+			"invokeTarget":{
+				"target": "api",
+				"templatePath": "${workspaceFolder}/backend-app/template.yaml",
+				"logicalId": "TagSearchApiFunction",
+			},
+			"api":{
+				"path":"/searchtweets?searchtag=Vancouver",
+				"httpMethod": "get",
+				"payload": {}
+			}
 		}],
 		"compounds": []
 	}
