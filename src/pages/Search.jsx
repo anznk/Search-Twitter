@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const Search = () => {
   const [search, setSearch] = useState("");
+  const [message, setMessage] = useState("");
   
   const handleChange = event => {
     setSearch(event.target.value);
@@ -13,6 +14,9 @@ const Search = () => {
       .then(res => {
         console.log("res", res);
         console.log("res.data", res.data);
+        if(res.status === 200){
+          setMessage("Tahnk you");
+        }
       })
 
     // clear input box value
@@ -30,13 +34,14 @@ const Search = () => {
           id="search"
           placeholder="search word"
           name="search"
-          autocomplete="off"
+          autoComplete="off"
           value={search}
         />
         <button type="submit" className="button">
           Submit
         </button>
       </form>
+      <p>{message}</p>
     </div>
   )
 }

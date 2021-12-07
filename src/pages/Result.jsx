@@ -15,14 +15,8 @@ const Result = () => {
         const value = items.sort(function (a, b) {
           return b.date - a.date;
         });
-
         setSearchTag(value[0].searchtag);
-        // console.log(value[0].searchtag);
-        // console.log("value[0].searchtag", searchTag);
       }
-      // if(searchTag != "" && searchTag != null){
-      //   fetchTweets(searchTag);
-      // }
     }
 
     async function fetchTweets(keyword) {
@@ -44,17 +38,11 @@ const Result = () => {
     }
 
   useEffect(() => {
-    // if (tweets.length > 0) {
-    //   return;
-    // }
-    // fetchData();
-    // if(searchTag !== undefined){
-    //   fetchTweets(searchTag);
-    // }
-    if(flag == false){
+
+    if(flag === false){
       // first time
       fetchData();
-      if(searchTag !== undefined){
+      if(searchTag){
         fetchTweets(searchTag);
       }
       flag = true;
@@ -64,7 +52,7 @@ const Result = () => {
     const interval = setInterval(() => {
       console.log("timer");
       fetchData();
-      if(searchTag !== undefined){
+      if(searchTag){
         fetchTweets(searchTag);
       }
     }, 10000);
@@ -72,12 +60,15 @@ const Result = () => {
   }, [tweets, searchTag]);
 
   return (
-    <div>
+    <div className="">
       <h1>Result for searchtag: {searchTag}</h1>
     <ol>{
       tweets.map((tweet, i) => {
         return (
-          <li key={ i }>{ tweet.text }</li>
+          <li key={ i }>{tweet.user_name}
+                        { tweet.text }
+                        {tweet.created_at}
+          </li>
         )
       })
     }</ol>
