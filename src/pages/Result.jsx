@@ -62,7 +62,7 @@ const Result = () => {
 
   return (
     <div className="main">
-      <h1># {searchTag}</h1>
+      <h1># 　{searchTag}</h1>
     <ol className="feed">{
       tweets.map((tweet, i) => {
         return (

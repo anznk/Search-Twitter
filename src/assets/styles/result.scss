@@ -13,6 +13,7 @@ li, ol{
     margin: 0.6em 1em;
     border: double 5px #4ec4d3;
     width: 200px;
+    height: 500px;
     ol{
       margin: 0; 
       padding: 0;
@@ -29,10 +30,11 @@ li, ol{
     }
     .tweet_created_at{
       font-size:0.7em;
+      color: #C0C0C0;
     }
     .tweet{
       padding: 0 0.5em;
-      border-bottom: solid 1px #4ec4d3;
+      border-bottom: solid 1px #1D9BEF;
     }
   }
   li{
