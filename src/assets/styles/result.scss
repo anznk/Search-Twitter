@@ -1,0 +1,42 @@
+
+li, ol{
+  padding: 0;
+}
+.main{
+  padding: 96px 0;
+  h1{
+    margin: 0 1em;
+    font-size: 0.9em;
+  }
+  .feed{
+    // padding: 0.5em 1em;
+    margin: 0.6em 1em;
+    border: double 5px #4ec4d3;
+    width: 200px;
+    ol{
+      margin: 0; 
+      padding: 0;
+      .feed{
+        padding: 0;
+      }
+      
+    }
+    .tweet_name{
+      font-size:0.9em;
+    }
+    .tweet_text{
+      font-size:0.8em;
+    }
+    .tweet_created_at{
+      font-size:0.7em;
+    }
+    .tweet{
+      padding: 0 0.5em;
+      border-bottom: solid 1px #4ec4d3;
+    }
+  }
+  li{
+    list-style-type: none;
+  }
+
+}

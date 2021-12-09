@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import "../assets/styles/result.scss"
 
 const Result = () => {
     const [tweets, setTweets ] = useState([]);
@@ -60,14 +61,15 @@ const Result = () => {
   }, [tweets, searchTag]);
 
   return (
-    <div className="">
-      <h1>Result for searchtag: {searchTag}</h1>
-    <ol>{
+    <div className="main">
+      <h1># {searchTag}</h1>
+    <ol className="feed">{
       tweets.map((tweet, i) => {
         return (
-          <li key={ i }>{tweet.user_name}
-                        { tweet.text }
-                        {tweet.created_at}
+          <li key={ i } className="tweet">
+            <p className="tweet_name">@{tweet.user_name}</p>
+            <p className="tweet_text">{ tweet.text }</p>
+            <p className="tweet_created_at">{tweet.created_at}</p>
           </li>
         )
       })
