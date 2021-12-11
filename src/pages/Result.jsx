@@ -1,11 +1,14 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import "../assets/styles/result.scss"
-import CurrentTweet from "../components/CurrentTweet";
+// import {CurrentTweet, SelectedTweets} from "../components";
+import {CurrentTweet} from "../components";
+// import CurrentTweet from "../components";
+
 
 const Result = () => {
-    const [tweets, setTweets ] = useState([]);
     const [searchTag, setSearchTag ] = useState();
+    const [tweets, setTweets ] = useState([]);
     const [selectedTweets, setSelectedTweets ] = useState([]);
     
     let flag = false;
@@ -42,9 +45,9 @@ const Result = () => {
 
   useEffect(() => {
     // call fetchTweerts once
-    if (tweets.length) {
-      return;
-    }
+    // if (tweets.length) {
+    //   return;
+    // }
     fetchTweets("Vancouver");
     // if(flag === false){
       // first time
@@ -65,22 +68,22 @@ const Result = () => {
     // }, 10000);
     // return () => clearInterval(interval)
   // }, [tweets, searchTag]);
-  }, [tweets]);
+  }, []);
 
   const addTweets = event => {
     // console.log("event", event);
-
     setSelectedTweets([...selectedTweets, tweets[event]]);   
     tweets.splice(event, 1);
     // setTweets(...tweets, tweets);
     // console.log("tweets", tweets);
-    
   }
   const deleteTweets = event => {
+    setTweets([...tweets, selectedTweets[event]]);  
     selectedTweets.splice(event, 1);  
     setSelectedTweets([...selectedTweets, selectedTweets]);
     // console.log("selectedTweets", selectedTweets);
   }
+
   return (
     <div className="main">
       <h1># 　{searchTag}</h1>
@@ -112,7 +115,12 @@ const Result = () => {
       })
       )
     }</ol>
+    {/* <div className="feed">
+    <SelectedTweets selected={selectedTweets} setSelectedTweets={setSelectedTweets}/>
+    </div> */}
+    <div className="feed">
     <CurrentTweet selected={selectedTweets} setSelectedTweets={setSelectedTweets}/>
+    </div>
     </div>
     
     
