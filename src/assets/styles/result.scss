@@ -9,6 +9,7 @@ li, ol{
     font-size: 0.9em;
   }
   .feed{
+    display: inline-block;
     // padding: 0.5em 1em;
     margin: 0.6em 1em;
     border: double 5px #4ec4d3;
@@ -18,6 +19,7 @@ li, ol{
     ol{
       margin: 0; 
       padding: 0;
+      
       // .feed{
       //   padding: 0;
       // }
