@@ -10,7 +10,7 @@ const Result = () => {
     const [searchTag, setSearchTag ] = useState();
     const [tweets, setTweets ] = useState([]);
     const [selectedTweets, setSelectedTweets ] = useState([]);
-    
+    const [currentTweet, setCurrentTweet ] = useState({});
     async function fetchData() {
       // get Search word
       const res = await axios.get(`http://localhost:3000/results`, {mode: 'cors'});
@@ -44,7 +44,15 @@ const Result = () => {
 
   useEffect(() => {
     fetchTweets("Vancouver");
-  }, []);
+    let interval = setInterval(() => {
+      console.log("inside setInterval");
+      setCurrentTweet(selectedTweets[0]);
+      selectedTweets.splice(0, 1);
+    }, 10000);
+    // setCurrentTweet(selectedTweets[0]);
+    // selectedTweets.splice(0, 1);
+    return () => clearInterval(interval);
+  }, [selectedTweets]);
 
   const addTweets = event => {
     setSelectedTweets([...selectedTweets, tweets[event]]);   
@@ -91,7 +99,7 @@ const Result = () => {
     <SelectedTweets selected={selectedTweets} setSelectedTweets={setSelectedTweets}/>
     </div> */}
     <div className="feed">
-    <CurrentTweet selected={selectedTweets} setSelectedTweets={setSelectedTweets}/>
+    <CurrentTweet tweet={currentTweet}/>
     </div>
     </div>
     

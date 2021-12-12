@@ -4,17 +4,10 @@ import React, {useEffect, useState} from "react";
 const CurrentTweet = (props) => {
 
   const [tweet, setTweet ] = useState();
-  const [tweetIndex, setTweetIndex] = useState(0);
-  
+
   useEffect(() => {
-    let interval = setInterval(() => {
-      setTweetIndex(tweetIndex + 1);
-      }, 10000);
-
-    setTweet(props.selected[tweetIndex % props.selected.length]);
-    return () => clearInterval(interval);
-
-  }, [props, tweetIndex]);
+    setTweet(props.tweet);
+  }, [props.tweet]);
 
   return (
     <div className="currentTweet">
