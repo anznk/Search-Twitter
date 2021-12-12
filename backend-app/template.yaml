@@ -2,8 +2,6 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
   backend-app
-  
-  Sample SAM Template for backend-app
 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
@@ -28,6 +26,8 @@ Resources:
           Properties:
             Path: /results
             Method: GET
+            Auth: 
+              ApiKeyRequired: true
         SubmitSearchTag:
           Type: Api
           Properties:
@@ -38,11 +38,16 @@ Resources:
           Properties:
             Path: /searchtweets
             Method: GET
+            Auth: 
+              ApiKeyRequired: true
         Test:
           Type: Api
           Properties:
             Path: /initialise
             Method: GET
+            Auth: 
+              ApiKeyRequired: true
+
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function

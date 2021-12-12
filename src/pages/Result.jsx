@@ -45,14 +45,13 @@ const Result = () => {
   useEffect(() => {
     fetchTweets("Vancouver");
     let interval = setInterval(() => {
-      console.log(selectedTweets.length)
       if(selectedTweets.length > 0){
         let tweet = selectedTweets.splice(0, 1)[0];
         setCurrentTweet(tweet);
       }
     }, 10000);
     
-  
+    return () => clearInterval(interval);
   }, [selectedTweets]);
 
   const addTweets = event => {
