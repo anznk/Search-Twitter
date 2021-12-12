@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import "../assets/styles/result.scss"
-// import {CurrentTweet, SelectedTweets} from "../components";
-import {CurrentTweet} from "../components";
+import {CurrentTweet, SelectedTweets} from "../components";
+// import {CurrentTweet} from "../components";
 // import CurrentTweet from "../components";
 
 
@@ -77,12 +77,12 @@ const Result = () => {
     // setTweets(...tweets, tweets);
     // console.log("tweets", tweets);
   }
-  const deleteTweets = event => {
-    setTweets([...tweets, selectedTweets[event]]);  
-    selectedTweets.splice(event, 1);  
-    setSelectedTweets([...selectedTweets, selectedTweets]);
-    // console.log("selectedTweets", selectedTweets);
-  }
+  // const deleteTweets = event => {
+  //   setTweets([...tweets, selectedTweets[event]]);  
+  //   selectedTweets.splice(event, 1);  
+  //   setSelectedTweets([...selectedTweets, selectedTweets]);
+  //   // console.log("selectedTweets", selectedTweets);
+  // }
 
   return (
     <div className="main">
@@ -102,7 +102,7 @@ const Result = () => {
       }</ol>
 
     {/* selected tweets */}
-    <ol className="feed">{
+    {/* <ol className="feed">{
       selectedTweets && (
       selectedTweets.map((selectedTweet, i) => {
         return (
@@ -114,13 +114,13 @@ const Result = () => {
         )
       })
       )
-    }</ol>
-    {/* <div className="feed">
-    <SelectedTweets selected={selectedTweets} setSelectedTweets={setSelectedTweets}/>
-    </div> */}
+    }</ol> */}
     <div className="feed">
-    <CurrentTweet selected={selectedTweets} setSelectedTweets={setSelectedTweets}/>
+    <SelectedTweets selected={selectedTweets} setSelectedTweets={setSelectedTweets}/>
     </div>
+    {/* <div className="feed">
+    <CurrentTweet selected={selectedTweets} setSelectedTweets={setSelectedTweets}/>
+    </div> */}
     </div>
     
     

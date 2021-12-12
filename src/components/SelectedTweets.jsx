@@ -2,24 +2,29 @@ import React, {useEffect, useState} from "react";
 // import "../assets/styles/result.scss"
 
 const SelectedTweets = (props) => {
-  console.log("props",props.selected);
-  const [selectedTweets, setSelectedTweets] = useState(props.selected);
 
-  console.log("selectedTweets",selectedTweets);
+  const [selectedTweets, setSelectedTweets] = useState([]);
+
+  useEffect(() => {
+    setSelectedTweets(props.selected);
+  },[props.selected])
 
   const deleteTweets = event => {
-    selectedTweets.splice(event, 1);  
-    setSelectedTweets([...selectedTweets, selectedTweets]);
-    props.setSelectedTweets([...selectedTweets, selectedTweets]);
-    // console.log("selectedTweets", selectedTweets);
+    console.log("selectedTweets",selectedTweets);
+    // set the selectedTweets to temp variable
+    const temp = [...selectedTweets];
+    // delete tweet from temp(selectedTweets) list
+    temp.splice(event, 1);
+    setSelectedTweets(temp);
+    // return to the Result component
+    props.setSelectedTweets(temp);
   }
-
 
   return (
     <div className="selectedtweets">
       <ol>{
-        selectedTweets && (
-        selectedTweets.map((selectedTweet, i) => {
+        props.selected && (
+          props.selected.map((selectedTweet, i) => {
           return (
             <li key={ i } className="tweet" onClick={() => deleteTweets(i)}>
               <p className="tweet_name">{selectedTweet.user_name}</p>
