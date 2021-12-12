@@ -8,7 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 )
 
-var DDB_ENDPOINT = "http://192.168.1.18:8000"
+var DDB_ENDPOINT = "http://192.168.1.5:8000"
 var REGION = "us-west-2"
 
 func SimpleDynamoDBQuery() {
