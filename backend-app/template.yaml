@@ -47,6 +47,20 @@ Resources:
             Method: GET
             Auth: 
               ApiKeyRequired: true
+  DynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties: 
+      TableName: twittersearch-gettag
+      AttributeDefinitions:
+        - AttributeName: date
+        - AttributeType: S
+      KeySchema:
+        - AttributeName: date
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+
 
 
 Outputs:
@@ -61,4 +75,4 @@ Outputs:
     Value: !GetAtt TagSearchApiFunction.Arn
   TagSearchApiFunctionIamRole:
     Description: "Implicit IAM Role created for Hello World function"
-    Value: !GetAtt HelloWorldFunctionRole.Arn
+    Value: !GetAtt TagSearchApiFunctionIamRole.Arn

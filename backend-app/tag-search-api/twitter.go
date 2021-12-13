@@ -73,10 +73,10 @@ func getSecret() (string, string) {
 
 func TweetSearch(query string) (Tweets, string, int) {
 
-	// secretString, _ := getSecret()
-	// if secretString == "error" {
-	// 	return nil, "error", 400
-	// }
+	secretString, _ := getSecret()
+	if secretString == "error" {
+		return nil, "error", 400
+	}
 
 	// oauth2 configures a client that uses app credentials to keep a fresh token
 	config := &clientcredentials.Config{
