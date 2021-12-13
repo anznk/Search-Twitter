@@ -60,9 +60,6 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
-  
-      
-
 
 Outputs:
   TagSearchApiAPI:
@@ -71,6 +68,3 @@ Outputs:
   TagSearchApiFunction:
     Description: "TagSearchAPI"
     Value: !GetAtt TagSearchApiFunction.Arn
-  TagSearchApiFunctionIamRole:
-    Description: "Implicit IAM Role created for Hello World function"
-    Value: !GetAtt TagSearchApiFunctionRole.Arn
