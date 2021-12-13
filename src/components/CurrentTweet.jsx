@@ -1,26 +1,20 @@
-import React, {useEffect, useState} from "react";
+import React, { useContext } from "react";
+import "../assets/styles/result.scss"
+import { TweetsContext} from '../Context/TweetsContext';
 
-
-const CurrentTweet = (props) => {
-
-  const [tweet, setTweet ] = useState();
-
-  useEffect(() => {
-    setTweet(props.tweet);
-  }, [props.tweet]);
-
+const CurrentTweet = () => {
+  const { currentTweet } = useContext(TweetsContext);
   return (
     <div className="currentTweet">
-    {tweet ? (
-      <>
-      <p>{tweet.user_name}</p>
-      <p>{tweet.text}</p>
-      <p>{tweet.created_at}</p>
-      </>
-    ): <p>No</p>}
-
+      {currentTweet ? (
+        <>
+        <p>{currentTweet.user_name}</p>
+        <p>{currentTweet.text}</p>
+        <p>{currentTweet.created_at}</p>
+        </>
+      ): <p>No</p>}
     </div>
   )
 }
 
-export default CurrentTweet
+export default CurrentTweet;
