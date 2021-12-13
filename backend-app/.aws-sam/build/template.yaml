@@ -51,7 +51,7 @@ Resources:
       TableName: twittersearch-gettag
       AttributeDefinitions:
       - AttributeName: date
-      - AttributeType: S
+        AttributeType: S
       KeySchema:
       - AttributeName: date
         KeyType: HASH
@@ -73,5 +73,5 @@ Outputs:
     Description: Implicit IAM Role created for Hello World function
     Value:
       Fn::GetAtt:
-      - HelloWorldFunctionRole
+      - TagSearchApiFunctionRole
       - Arn

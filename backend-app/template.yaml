@@ -3,7 +3,6 @@ Transform: AWS::Serverless-2016-10-31
 Description: >
   backend-app
 
-# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
     Timeout: 5
@@ -16,6 +15,7 @@ Resources:
   TagSearchApiFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
+      Role: arn:aws:iam::391076636573:role/LambdaRoleGetHashTag
       CodeUri: tag-search-api/
       Handler: tag-search-api
       Runtime: go1.x
@@ -53,20 +53,18 @@ Resources:
       TableName: twittersearch-gettag
       AttributeDefinitions:
         - AttributeName: date
-        - AttributeType: S
+          AttributeType: S
       KeySchema:
         - AttributeName: date
           KeyType: HASH
       ProvisionedThroughput:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
-
+  
+      
 
 
 Outputs:
-  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
-  # Find out more about other implicit resources you can reference within SAM
-  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
   TagSearchApiAPI:
     Description: "API Gateway endpoint URL"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/tagsearchapi/"
@@ -75,4 +73,4 @@ Outputs:
     Value: !GetAtt TagSearchApiFunction.Arn
   TagSearchApiFunctionIamRole:
     Description: "Implicit IAM Role created for Hello World function"
-    Value: !GetAtt TagSearchApiFunctionIamRole.Arn
+    Value: !GetAtt TagSearchApiFunctionRole.Arn

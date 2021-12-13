@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/base64"
+	"encoding/json"
 	"fmt"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -11,8 +12,12 @@ import (
 	"github.com/dghubble/go-twitter/twitter"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/clientcredentials"
-	// "encoding/json"
 )
+
+type TwitterSecret struct {
+	ClientID     string `json:"clientid"`
+	ClientSecret string `json:"clientsecret"`
+}
 
 func getSecret() (string, string) {
 	secretName := "prod/twitterkeys"
@@ -74,14 +79,21 @@ func getSecret() (string, string) {
 func TweetSearch(query string) (Tweets, string, int) {
 
 	secretString, _ := getSecret()
+	var twitterCredentials TwitterSecret
+
 	if secretString == "error" {
+		return nil, "error", 400
+	}
+
+	err := json.Unmarshal([]byte(secretString), &twitterCredentials)
+	if err != nil {
 		return nil, "error", 400
 	}
 
 	// oauth2 configures a client that uses app credentials to keep a fresh token
 	config := &clientcredentials.Config{
-		ClientID:     "Zow9qZu0JXiSb8euXeDbsjEV4",
-		ClientSecret: "lcbZcg2bMmSIpCnfJAt11Uz9ImKW98t3hl3HdQdFN3BbzwFkSp",
+		ClientID:     twitterCredentials.ClientID,
+		ClientSecret: twitterCredentials.ClientSecret,
 		TokenURL:     "https://api.twitter.com/oauth2/token",
 	}
 	// http.Client will automatically authorize Requests
