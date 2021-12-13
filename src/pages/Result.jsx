@@ -5,7 +5,6 @@ import "../assets/styles/result.scss"
 import {CurrentTweet} from "../components";
 // import CurrentTweet from "../components";
 
-
 const Result = () => {
     const [searchTag, setSearchTag ] = useState();
     const [tweets, setTweets ] = useState([]);
@@ -13,7 +12,10 @@ const Result = () => {
     const [currentTweet, setCurrentTweet ] = useState({});
     async function fetchData() {
       // get Search word
-      const res = await axios.get(`http://localhost:3000/results`, {mode: 'cors'});
+      const res = await axios.get(`https://gf9kxpm6x4.execute-api.us-west-2.amazonaws.com/Prod/results`, 
+      {mode: 'cors'}, 
+      {headers: 
+        {'x-api-key': process.env.REACT_APP_API_KEY}});
       const items = res.data;
       if (items.length) {
         // sort
@@ -27,12 +29,13 @@ const Result = () => {
     async function fetchTweets(keyword) {
       // console.log("keyword", keyword);
       // get tweet with search word
-      const tweets = await axios.get('http://localhost:3000/searchtweets?searchtag='+keyword, {
+      const tweets = await axios.get('https://gf9kxpm6x4.execute-api.us-west-2.amazonaws.com/Prod/searchtweets?searchtag='+keyword, {
         // query URL without using browser cache
         headers: {
           'Cache-Control': 'no-cache',
           'Pragma': 'no-cache',
           'Expires': '0',
+          'x-api-key': process.env.REACT_APP_API_KEY
         },
       });
       const data = tweets.data;

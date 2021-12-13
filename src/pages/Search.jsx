@@ -10,12 +10,15 @@ const Search = () => {
   }
   const handleSubmit = event => {
     event.preventDefault();
-    axios.post(`http://localhost:3000/register`, { "searchtag": search},{mode: 'cors'})
+    axios.post(`https://gf9kxpm6x4.execute-api.us-west-2.amazonaws.com/Prod/register`, 
+    {"searchtag": search},
+    {headers: 
+      {'x-api-key': process.env.REACT_APP_API_KEY}})
       .then(res => {
         console.log("res", res);
         console.log("res.data", res.data);
         if(res.status === 200){
-          setMessage("Tahnk you");
+          setMessage("Thank you");
         }
       })
 

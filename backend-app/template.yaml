@@ -28,11 +28,14 @@ Resources:
             Method: GET
             Auth: 
               ApiKeyRequired: true
+            
         SubmitSearchTag:
           Type: Api
           Properties:
             Path: /register
             Method: POST
+            Auth: 
+              ApiKeyRequired: true
         SearchTweets:
           Type: Api
           Properties:

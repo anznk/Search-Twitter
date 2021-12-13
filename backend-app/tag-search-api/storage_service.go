@@ -75,7 +75,7 @@ func AddSearchTag(searchtag SearchTagBody, date string, data string) (string, in
 		fmt.Println(err.Error())
 		return "error calling NewSession - " + err.Error(), 400
 	}
-	return "", 0
+	return searchtag.SearchTag, 200
 }
 
 func InitialiseTable() (string, int) {

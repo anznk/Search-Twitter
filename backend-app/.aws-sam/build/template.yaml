@@ -32,6 +32,8 @@ Resources:
           Properties:
             Path: /register
             Method: POST
+            Auth:
+              ApiKeyRequired: true
         SearchTweets:
           Type: Api
           Properties:
