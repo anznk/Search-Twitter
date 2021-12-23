@@ -8,7 +8,7 @@ const TweetsProvider = props => {
   const [tweets, setTweets ] = useState([]);
   const [selectedTweets, setSelectedTweets ] = useState([]);
   const [currentTweet, setCurrentTweet ] = useState({});
-
+  const [counter, setCounter ] = useState(10);
   async function fetchTweets(keyword) {
     // get tweet with search word
     const tweets = await axios.get('https://gf9kxpm6x4.execute-api.us-west-2.amazonaws.com/Prod/searchtweets?searchtag='+keyword, {
@@ -49,14 +49,18 @@ const TweetsProvider = props => {
     fetchTweets("Vancouver");
 
     let interval = setInterval(() => {
-      if(selectedTweets.length > 0){
+      if(counter > 0){
+        setCounter(counter - 1);
+      }
+      if(selectedTweets.length > 0 && counter === 0){
         let tweet = selectedTweets.splice(0, 1)[0];
         setCurrentTweet(tweet);
+        setCounter(10);
       }
-    }, 10000);
+    }, 1000);
     return () => clearInterval(interval);
 
-  }, [selectedTweets]);
+  }, [selectedTweets, counter]);
 
   return (
     <TweetsContext.Provider value={{tweets, selectedTweets, currentTweet, addTweets, deleteTweets}}>
