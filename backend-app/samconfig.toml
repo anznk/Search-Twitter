@@ -1,0 +1,9 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "get-hashtag"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-17r0mej2kexpu"
+s3_prefix = "get-hashtag"
+region = "us-west-2"
+capabilities = "CAPABILITY_IAM"

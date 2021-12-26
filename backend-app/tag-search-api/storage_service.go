@@ -8,8 +8,9 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 )
 
-var DDB_ENDPOINT = "http://192.168.1.18:8000"
+var DDB_ENDPOINT = "http://192.168.1.5:8000"
 var REGION = "us-west-2"
+var TABLENAME = "twittersearch-gettag"
 
 func SimpleDynamoDBQuery() {
 	fmt.Println("SimpleDynamoDBQuery")
@@ -17,14 +18,14 @@ func SimpleDynamoDBQuery() {
 
 func GetResults() (SearchTagResponseList, string, int) {
 	sess, err := session.NewSession(&aws.Config{
-		Endpoint: aws.String(DDB_ENDPOINT),
-		Region:   aws.String(REGION),
+		// Endpoint: aws.String(DDB_ENDPOINT),
+		Region: aws.String(REGION),
 	})
 
 	svc := dynamodb.New(sess)
 
 	result, err := svc.Scan(&dynamodb.ScanInput{
-		TableName: aws.String("SearchTags"),
+		TableName: aws.String(TABLENAME),
 	})
 
 	if err != nil {
@@ -49,8 +50,8 @@ func GetResults() (SearchTagResponseList, string, int) {
 
 func AddSearchTag(searchtag SearchTagBody, date string, data string) (string, int) {
 	sess, err := session.NewSession(&aws.Config{
-		Endpoint: aws.String(DDB_ENDPOINT),
-		Region:   aws.String(REGION),
+		// Endpoint: aws.String(DDB_ENDPOINT),
+		Region: aws.String(REGION),
 	})
 
 	svc := dynamodb.New(sess)
@@ -66,7 +67,7 @@ func AddSearchTag(searchtag SearchTagBody, date string, data string) (string, in
 				S: aws.String(data),
 			},
 		},
-		TableName: aws.String("SearchTags"),
+		TableName: aws.String(TABLENAME),
 	}
 	_, err = svc.PutItem(input)
 
@@ -74,13 +75,13 @@ func AddSearchTag(searchtag SearchTagBody, date string, data string) (string, in
 		fmt.Println(err.Error())
 		return "error calling NewSession - " + err.Error(), 400
 	}
-	return "", 0
+	return searchtag.SearchTag, 200
 }
 
 func InitialiseTable() (string, int) {
 	sess, err := session.NewSession(&aws.Config{
-		Endpoint: aws.String(DDB_ENDPOINT),
-		Region:   aws.String(REGION),
+		// Endpoint: aws.String(DDB_ENDPOINT),
+		Region: aws.String(REGION),
 	})
 
 	// Create DynamoDB client
@@ -112,7 +113,7 @@ func InitialiseTable() (string, int) {
 			ReadCapacityUnits:  aws.Int64(10),
 			WriteCapacityUnits: aws.Int64(10),
 		},
-		TableName: aws.String("SearchTags"),
+		TableName: aws.String(TABLENAME),
 	}
 
 	_, err = svc.CreateTable(input)
