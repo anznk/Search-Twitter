@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Grid, GridItem } from '@chakra-ui/react';
-import TweetsProvider from "../Context/TweetsContext"
+import TweetsProvider from "../context/TweetsContext"
 import "../assets/styles/result.scss"
 import {Tweets, SelectedTweets, CurrentTweet, StreamTweet} from "../components";
 
