@@ -5,10 +5,6 @@ import "../assets/styles/result.scss"
 import {Tweets, SelectedTweets, CurrentTweet, StreamTweet} from "../components";
 
 const Result = () => {
-<<<<<<< HEAD
-=======
-
->>>>>>> d437a865155d5e898b2d1296bf70c4bdf4a2aadc
   return (
     <TweetsProvider>
     {/* <Header /> */}

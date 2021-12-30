@@ -6,7 +6,6 @@ import axios from 'axios';
 
 export const TweetsContext = createContext();
 
-<<<<<<< HEAD
 const useInternval = (callback, delay) => {
   const timeoutRef = React.useRef();
   const callbackRef = React.useRef(callback);
@@ -60,27 +59,6 @@ const TweetsProvider = (props) => {
         setHashTag(keyword);
         setFetchFlg(false);
       }
-=======
-const TweetsProvider = props => {
-  const [tweets, setTweets ] = useState([]);
-  const [selectedTweets, setSelectedTweets ] = useState([]);
-  const [currentTweet, setCurrentTweet ] = useState({});
-
-  async function fetchTweets(keyword) {
-    // get tweet with search word
-    const tweets = await axios.get('http://localhost:3000/searchtweets?searchtag='+keyword, {
-      // query URL without using browser cache
-      headers: {
-        'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache',
-        'Expires': '0',
-      },
-    });
-    const data = tweets.data;
-    // console.log("data", data);
-    if(data){
-      setTweets(data);
->>>>>>> d437a865155d5e898b2d1296bf70c4bdf4a2aadc
     }
 
 
@@ -116,7 +94,6 @@ const TweetsProvider = props => {
     setStopFlg(false);
   };
 
-<<<<<<< HEAD
   const UpdateTweet = () => {
     // 更新ボタン押下後、再度feetchする
     fetchTweets('Vancouver');
@@ -126,9 +103,9 @@ const TweetsProvider = props => {
     // 10秒間隔でツイートを表示する
     if (selectedTweets.length > 0 && stopFlg) {
       let tweet = selectedTweets.splice(0, 1)[0];
-      setCurrentTweetProfileImage(tweet.user.profile_image_url);
-      setCurrentTweetUserName(tweet.user.name);
-      setCurrentTweetUserScreenName(tweet.user.screen_name);
+      // setCurrentTweetProfileImage(tweet.user.profile_image_url);
+      setCurrentTweetUserName(tweet.user_name);
+      setCurrentTweetUserScreenName(tweet.user_name);
       setCurrentTweetText(tweet.text);
     }
   }, 10000);
@@ -142,28 +119,14 @@ const TweetsProvider = props => {
     if (firstStreamFlg) {
       if (selectedTweets.length > 0) {
         let tweet = selectedTweets.splice(0, 1)[0];
-        setCurrentTweetProfileImage(tweet.user.profile_image_url);
-        setCurrentTweetUserName(tweet.user.name);
-        setCurrentTweetUserScreenName(tweet.user.screen_name);
+        // setCurrentTweetProfileImage(tweet.user.profile_image_url);
+        setCurrentTweetUserName(tweet.user_name);
+        setCurrentTweetUserScreenName(tweet.user_name);
         setCurrentTweetText(tweet.text);
       }
       setFirstStreamFlg(false);
     }
   }, [fetchFlg, firstStreamFlg, selectedTweets]);
-=======
-  useEffect(() => {
-    fetchTweets("Vancouver");
-
-    let interval = setInterval(() => {
-      if(selectedTweets.length > 0){
-        let tweet = selectedTweets.splice(0, 1)[0];
-        setCurrentTweet(tweet);
-      }
-    }, 10000);
-    return () => clearInterval(interval);
-
-  }, [selectedTweets]);
->>>>>>> d437a865155d5e898b2d1296bf70c4bdf4a2aadc
 
   return (
     <TweetsContext.Provider

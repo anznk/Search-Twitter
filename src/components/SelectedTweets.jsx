@@ -28,20 +28,20 @@ const SelectedTweets = () => {
                 onClick={() => deleteTweets(i)}
               >
                 <Box minW="15%">
-                  <Image
+                  {/* <Image
                     borderRadius="full"
                     boxSize="50px"
                     src={selectedTweet.user.profile_image_url}
                     alt={'[Get User Picture]'}
-                  />
+                  /> */}
                 </Box>
                 <Box>
                   <Box display="flex">
                     <Text fontWeight="semibold" mr="1">
-                      {selectedTweet.user.name}
+                      {selectedTweet.user_name}
                     </Text>
                     <Text color="gray.500">
-                      @{selectedTweet.user.screen_name}
+                      @{selectedTweet.user_name}
                     </Text>
                   </Box>
                   <Text>{selectedTweet.text}</Text>

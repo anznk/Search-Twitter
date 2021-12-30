@@ -34,20 +34,20 @@ const Tweets= () => {
                 onClick={() => addTweets(i)}
               >
                 <Box minW="15%">
-                  <Image
+                  {/* <Image
                     borderRadius="full"
                     boxSize="50px"
                     src={tweet.user.profile_image_url}
                     alt={'[Get User Picture]'}
                     mr="2"
-                  />
+                  /> */}
                 </Box>
                 <Box>
                   <Box display="flex">
                     <Text fontWeight="semibold" mr="1">
-                      {tweet.user.name}
+                      {tweet.text}
                     </Text>
-                    <Text color="gray.500">@{tweet.user.screen_name}</Text>
+                    <Text color="gray.500">@{tweet.user_name}</Text>
                   </Box>
                   <Text>{tweet.text}</Text>
                 </Box>
