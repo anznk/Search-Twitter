@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { TweetsContext } from '../context/TweetsContext';
 import { Container, Text, Box } from '@chakra-ui/react';
-import Marquee from 'react-fast-marquee';
+// import Marquee from 'react-fast-marquee';
 // import Marquee from 'react-double-marquee';
 import { FaTwitter } from 'react-icons/fa';
 
@@ -39,7 +39,7 @@ const StreamTweet = () => {
           </Box>
           {currentTweetUserName && (
             <Box w="80%" whiteSpace="nowrap">
-              <Marquee>{currentTweetText}</Marquee>
+              {/* <Marquee>{currentTweetText}</Marquee> */}
             </Box>
           )}
         </Box>
