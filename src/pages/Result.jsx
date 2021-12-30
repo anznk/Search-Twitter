@@ -6,7 +6,6 @@ import {Tweets, SelectedTweets, CurrentTweet} from "../components";
 
 const Result = () => {
 
-
   return (
     <div className="main">
       <TweetsProvider>
@@ -15,8 +14,6 @@ const Result = () => {
         <CurrentTweet />
       </TweetsProvider>
     </div>
-    
-    
   )
 }
 

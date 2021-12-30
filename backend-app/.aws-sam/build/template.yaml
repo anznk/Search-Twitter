@@ -2,8 +2,6 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: 'backend-app
 
-  Sample SAM Template for backend-app
-
   '
 Globals:
   Function:
@@ -16,6 +14,7 @@ Resources:
   TagSearchApiFunction:
     Type: AWS::Serverless::Function
     Properties:
+      Role: arn:aws:iam::391076636573:role/LambdaRoleGetHashTag
       CodeUri: TagSearchApiFunction
       Handler: tag-search-api
       Runtime: go1.x
@@ -26,21 +25,42 @@ Resources:
           Properties:
             Path: /results
             Method: GET
+            Auth:
+              ApiKeyRequired: true
         SubmitSearchTag:
           Type: Api
           Properties:
             Path: /register
             Method: POST
+            Auth:
+              ApiKeyRequired: true
         SearchTweets:
           Type: Api
           Properties:
             Path: /searchtweets
             Method: GET
+            Auth:
+              ApiKeyRequired: true
         Test:
           Type: Api
           Properties:
             Path: /initialise
             Method: GET
+            Auth:
+              ApiKeyRequired: true
+  DynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: twittersearch-gettag
+      AttributeDefinitions:
+      - AttributeName: date
+        AttributeType: S
+      KeySchema:
+      - AttributeName: date
+        KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
 Outputs:
   TagSearchApiAPI:
     Description: API Gateway endpoint URL
@@ -51,10 +71,4 @@ Outputs:
     Value:
       Fn::GetAtt:
       - TagSearchApiFunction
-      - Arn
-  TagSearchApiFunctionIamRole:
-    Description: Implicit IAM Role created for Hello World function
-    Value:
-      Fn::GetAtt:
-      - HelloWorldFunctionRole
       - Arn
