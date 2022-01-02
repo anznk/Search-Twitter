@@ -1,0 +1,35 @@
+.slider {
+    width: 100%;
+    overflow: hidden;
+    margin-left: 300px;
+    background-color: aqua;
+  }
+  
+  .slider h2 {
+      animation: slide-left 30s;
+      animation-play-state: paused;
+  }
+  
+  @keyframes slide-left {
+    from {
+      margin-left: 0%;
+    }
+  
+    to {
+        margin-left: -1000%;
+    }
+  }
+
+  @keyframes slide-right {
+    to {
+      transform:translateX(0);
+    }
+  }
+
+
+// div.slide-left p {
+//   animation: slide-left 10s;
+// }
+
+
+

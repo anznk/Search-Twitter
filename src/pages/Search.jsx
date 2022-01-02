@@ -1,5 +1,7 @@
 import React, { useState} from "react";
 import axios from 'axios';
+import TextMover from "../components/TextMover";
+import { Box } from '@chakra-ui/react';
 
 const Search = () => {
   const [search, setSearch] = useState("");
@@ -28,24 +30,10 @@ const Search = () => {
   }
   
   return (
-    <div className="searchbox">
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <input
-          onChange={(e) => handleChange(e)}
-          type="text"
-          className="search_container"
-          id="search"
-          placeholder="search word"
-          name="search"
-          autoComplete="off"
-          value={search}
-        />
-        <button type="submit" className="button">
-          Submit
-        </button>
-      </form>
-      <p>{message}</p>
-    </div>
+    <Box w="40%" whiteSpace="nowrap">
+    {/* <Marquee value={currentTweetText}>{currentTweetText}</Marquee> */}
+    <TextMover/>
+  </Box>
   )
 }
 
