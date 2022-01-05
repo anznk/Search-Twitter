@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useEffect, useState} from "react";
 import axios from 'axios';
 import TextMover from "../components/TextMover";
 import { Box } from '@chakra-ui/react';
@@ -28,11 +28,21 @@ const Search = () => {
     setSearch("");
 
   }
-  
+
+  let [textList, setTextList] = useState([]);
+  setTextList(['Hello world, this is just a little bit longer; no it needs to be just a little bit longer'])
+  // useEffect(() => {
+  //   let interval = setInterval(() => {
+
+  //   },10000);
+  //   return () => clearInterval(interval);
+  // }, []);
+
+
   return (
     <Box w="40%" whiteSpace="nowrap">
     {/* <Marquee value={currentTweetText}>{currentTweetText}</Marquee> */}
-    <TextMover/>
+    <TextMover text={textList[0]}/>
   </Box>
   )
 }
