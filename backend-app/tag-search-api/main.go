@@ -2,6 +2,8 @@ package main
 
 import (
 	"errors"
+	"fmt"
+
 	// "fmt"
 	// "io/ioutil"
 	// "net/http"
@@ -22,13 +24,14 @@ var (
 
 func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 
+	fmt.Println("Received body: " + request.Body)
 	var body, statusCode = SimpleRouter(request)
 	return events.APIGatewayProxyResponse{
-		Body: body,
+		Body:       body,
 		StatusCode: statusCode,
 		Headers: map[string]string{
-			"Content-Type": "application/json",
-			"Cross-Origin-Allow-Origin": "*",
+			"Content-Type":                "application/json",
+			"Cross-Origin-Allow-Origin":   "*",
 			"Access-Control-Allow-Origin": "*",
 		},
 	}, nil

@@ -9,6 +9,7 @@
 			"type": "aws-sam",
 			"request": "direct-invoke",
 			"name": "API hashdag:results",
+			"debugServer": 5858,
 			"invokeTarget":{
 				"target": "api",
 				"templatePath": "${workspaceFolder}/backend-app/template.yaml",
@@ -43,6 +44,7 @@
 			"type": "aws-sam",
 			"request": "direct-invoke",
 			"name": "API hashdag:test",
+			"debugServer": 5858,
 			"invokeTarget":{
 				"target": "api",
 				"templatePath": "${workspaceFolder}/backend-app/template.yaml",
@@ -71,5 +73,6 @@
 			}
 		}],
 		"compounds": []
-	}
+	},
+	"settings": {}
 }

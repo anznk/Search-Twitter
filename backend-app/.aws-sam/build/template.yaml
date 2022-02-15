@@ -48,6 +48,8 @@ Resources:
             Method: GET
             Auth:
               ApiKeyRequired: true
+    Metadata:
+      SamResourceId: TagSearchApiFunction
   DynamoDBTable:
     Type: AWS::DynamoDB::Table
     Properties:
